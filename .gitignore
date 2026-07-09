@@ -124,3 +124,21 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# OS files
+**/.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor / IDE
+*.swp
+*.swo
+*~
+.idea/
+
+# Ruff
+.ruff_cache/
