@@ -2,6 +2,7 @@
 
 import logging
 
+import aiohttp
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
@@ -16,15 +17,15 @@ NAME = DOMAIN
 VERSION = "1.0.0"
 ISSUEURL = "https://github.com/sollie/sensor.avfallsor/issues"
 
-STARTUP = """
+STARTUP = f"""
 -------------------------------------------------------------------
-{name}
-Version: {version}
+{NAME}
+Version: {VERSION}
 This is a custom component
 If you have any issues with this you need to open an issue here:
-{issueurl}
+{ISSUEURL}
 -------------------------------------------------------------------
-""".format(name=NAME, version=VERSION, issueurl=ISSUEURL)
+"""
 
 PLATFORMS = [Platform.SENSOR]
 
@@ -62,7 +63,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: AvfallSorConfigEntry) ->
     """Set up avfallsor from a config entry."""
     try:
         property_id = await _resolve_property_id(hass, entry)
-    except Exception as err:  # noqa: BLE001 - surface as retryable setup error
+    except (aiohttp.ClientError, TimeoutError) as err:
         raise ConfigEntryNotReady(
             f"Could not reach avfallsor.no to resolve the address: {err}"
         ) from err

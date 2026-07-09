@@ -7,6 +7,13 @@
                 "data": {
                     "address": "Address (e.g. Kongeveien 1)"
                 }
+            },
+            "reconfigure": {
+                "title": "Avfall Sør",
+                "description": "Update the street address for your waste pickup schedule.",
+                "data": {
+                    "address": "Address (e.g. Kongeveien 1)"
+                }
             }
         },
         "error": {
@@ -15,7 +22,8 @@
             "cannot_connect": "Failed to connect to avfallsor.no. Please try again later."
         },
         "abort": {
-            "already_configured": "This address is already configured."
+            "already_configured": "This address is already configured.",
+            "reconfigure_successful": "Address updated successfully."
         }
     },
     "entity": {

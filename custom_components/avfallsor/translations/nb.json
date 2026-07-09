@@ -7,6 +7,13 @@
                 "data": {
                     "address": "Adresse (f.eks. Kongeveien 1)"
                 }
+            },
+            "reconfigure": {
+                "title": "Avfall Sør",
+                "description": "Oppdater gateadressen for tømmekalenderen.",
+                "data": {
+                    "address": "Adresse (f.eks. Kongeveien 1)"
+                }
             }
         },
         "error": {
@@ -15,7 +22,8 @@
             "cannot_connect": "Kunne ikke koble til avfallsor.no. Prøv igjen senere."
         },
         "abort": {
-            "already_configured": "Denne adressen er allerede konfigurert."
+            "already_configured": "Denne adressen er allerede konfigurert.",
+            "reconfigure_successful": "Adressen ble oppdatert."
         }
     },
     "entity": {

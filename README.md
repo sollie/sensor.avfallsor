@@ -39,6 +39,9 @@ address, with one sensor per waste type found for your property:
 - Metal / Glass (`Glass- og metallemballasje`)
 - Plastic (`Plastemballasje`)
 
+To change your address later, use **Settings → Devices & Services → Avfall Sør
+→ Reconfigure**.
+
 ## Sensors
 
 Each sensor is a **date** sensor whose state is the **next pickup date** for
@@ -53,13 +56,16 @@ that waste type. Extra attributes:
 ### Days until pickup (template example)
 
 If you want a plain "days until" number, use a template sensor on the
-attribute:
+`days_until` attribute. Replace the entity id below with your own — with
+`has_entity_name`, the id includes the device name, e.g.
+`sensor.avfall_sor_kongeveien_1_residual_waste` (check **Developer Tools →
+States**):
 
 ```yaml
 template:
   - sensor:
       - name: Residual waste in days
-        state: "{{ state_attr('sensor.residual_waste', 'days_until') }}"
+        state: "{{ state_attr('sensor.avfall_sor_kongeveien_1_residual_waste', 'days_until') }}"
         unit_of_measurement: days
 ```
 

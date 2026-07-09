@@ -14,6 +14,8 @@ from .coordinator import AvfallSorCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
+ATTRIBUTION = "Data provided by Avfall Sør"
+
 ICONS = {
     "paper": "mdi:newspaper-variant-multiple",
     "bio": "mdi:leaf",
@@ -53,6 +55,7 @@ class AvfallSorSensor(CoordinatorEntity[AvfallSorCoordinator], SensorEntity):
 
     _attr_has_entity_name = True
     _attr_device_class = SensorDeviceClass.DATE
+    _attr_attribution = ATTRIBUTION
 
     def __init__(
         self,

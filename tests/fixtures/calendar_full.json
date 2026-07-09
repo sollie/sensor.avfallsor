@@ -1,0 +1,52 @@
+{
+  "collections": [
+    {
+      "dateIndex": "2026-07-15",
+      "heading": "Onsdag 15. juli",
+      "items": [
+        {
+          "fraksjonId": "9011",
+          "fraksjon": "Restavfall",
+          "dato": "2026-07-15T00:00:00",
+          "wasteIcons": ["residual"],
+          "onRequest": false,
+          "frequencyText": "Kan tømmes onsdager hver uke"
+        },
+        {
+          "fraksjonId": "1111",
+          "fraksjon": "Bioavfall",
+          "dato": "2026-07-15T00:00:00",
+          "wasteIcons": ["bio"],
+          "onRequest": false,
+          "frequencyText": "Kan tømmes onsdager hver uke"
+        }
+      ]
+    },
+    {
+      "dateIndex": "2026-08-05",
+      "heading": "Onsdag 05. august",
+      "items": [
+        {
+          "fraksjonId": "2499",
+          "fraksjon": "Papp og papir",
+          "dato": "2026-08-05T00:00:00",
+          "wasteIcons": ["paper"],
+          "onRequest": false,
+          "frequencyText": "Kan tømmes onsdager hver 4. uke"
+        },
+        {
+          "fraksjonId": "1322",
+          "fraksjon": "Glass- og metallemballasje",
+          "dato": "2026-08-05T00:00:00",
+          "wasteIcons": ["glass", "metal"],
+          "onRequest": false,
+          "frequencyText": "Kan tømmes onsdager hver 8. uke"
+        }
+      ]
+    }
+  ],
+  "currentYear": "2026",
+  "collectionYear": 2026,
+  "hasNextYear": false,
+  "cutoffDate": "2026-08-31"
+}
