@@ -77,7 +77,18 @@ assign the device to an area:
 
 **Settings → Devices & Services → Avfall Sør → (device) → assign an Area.**
 
-See the `lovelace_example/` folder for a manual card example.
+To show the days until the next pickup on a tile card, add the `days_until`
+attribute to its `state_content`:
+
+```yaml
+type: tile
+entity: sensor.avfall_sor_kongeveien_1_residual_waste
+state_content:
+  - state
+  - days_until
+```
+
+See the `lovelace_example/` folder for more card and automation examples.
 
 ## Upgrading from 0.x (breaking changes)
 
