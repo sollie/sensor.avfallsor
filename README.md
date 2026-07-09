@@ -1,68 +1,98 @@
 # sensor.avfallsor
-Simple sensor for avfallsor (garbage pickup)
 
+Home Assistant integration for [Avfall Sør](https://avfallsor.no) household
+waste pickup (Kristiansand / Vennesla, Norway).
 
-[![GitHub Release][releases-shield]][releases]
-[![GitHub Activity][commits-shield]][commits]
-[![License][license-shield]](LICENSE.md)
+Enter your street address and the integration finds your waste pickup schedule
+automatically — no need to look up any ID by hand.
+
 [![hacs][hacsbadge]][hacs]
-[![Discord][discord-shield]][discord]
-[![Community Forum][forum-shield]][forum]
-
 
 ## Installation
-Install using hacs or manual install
 
-### Manual install
-1. Using the tool of choice open the directory (folder) for your HA configuration (where you find `configuration.yaml`).
-2. If you do not have a `custom_components` directory (folder) there, you need to create it.
-3. In the `custom_components` directory (folder) create a new folder called `avfallsor`.
-4. Download _all_ the files from the `custom_components/avfallsor/` directory (folder) in this repository.
-5. Place the files you downloaded in the new directory (folder) you created.
-6. Restart Home Assistant
+### HACS (recommended)
+1. Add this repository as a custom repository in HACS (category: Integration).
+2. Install **Avfall Sør**.
+3. Restart Home Assistant.
 
+### Manual
+1. Copy `custom_components/avfallsor/` into your Home Assistant
+   `custom_components/` directory.
+2. Restart Home Assistant.
 
-## Configuration options
-Key | Type | Required | Default | Description
--- | -- | -- | -- | --
-`address` | `string` | `False` | `""` | Address for garbage pickup
-`street_id` | `string` | `False` | `""` | Go to https://avfallsor.no/henting-av-avfall/finn-hentedag/ enter the address and the hour number, select your adresse in the dropdown. After that you will be redirected to a url that look like: ```https://avfallsor.no/henting-av-avfall/finn-hentedag/c7b62b91-1f99-41a7-927d-5c3dc91805ca/``` grab the hash at the end.
+## Configuration
 
-The sensor tries to find the your address (to find the pickup dates for your address) in this order:
-1. `street_id`
-2. `address`
-3. Lat and lon that you entered when you setup home assistant.
+Add the integration from the UI:
 
-### Yaml
-So minimal yaml example could be.
-````
-sensor:
-- platform: avfallsor
-````
+1. Go to **Settings → Devices & Services → Add Integration**.
+2. Search for **Avfall Sør**.
+3. Enter your address, e.g. `Kongeveien 1`. Include the house number; you can
+   usually omit the municipality.
 
-Full example.
+The integration resolves the address against Avfall Sør's public address
+search, then fetches the pickup calendar. One **device** is created for your
+address, with one sensor per waste type found for your property:
+
+- Paper (`Papp og papir`)
+- Food waste (`Matavfall`)
+- Residual waste (`Restavfall`)
+- Metal / Glass (`Glass- og metallemballasje`)
+- Plastic (`Plastemballasje`)
+
+## Sensors
+
+Each sensor is a **date** sensor whose state is the **next pickup date** for
+that waste type. Extra attributes:
+
+| Attribute      | Description                                    |
+| -------------- | ---------------------------------------------- |
+| `days_until`   | Whole days until the next pickup               |
+| `upcoming`     | List of all known upcoming pickup dates (ISO)  |
+| `garbage_type` | Internal waste type key                        |
+
+### Days until pickup (template example)
+
+If you want a plain "days until" number, use a template sensor on the
+attribute:
+
+```yaml
+template:
+  - sensor:
+      - name: Residual waste in days
+        state: "{{ state_attr('sensor.residual_waste', 'days_until') }}"
+        unit_of_measurement: days
 ```
-sensor:
-- platform: avfallsor
-  address: "Kongeveien 1, Kristiansand"
-  street_id: c7b62b91-1f99-41a7-927d-5c3dc91805ca
-```
 
-### Integrations
-- In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "avfallsor"
+## Dashboards
 
-See the `lovelace_example` folder for config example
+The integration creates a proper device, so its sensors appear automatically
+on the **Areas dashboard** (the new experimental/default dashboard) once you
+assign the device to an area:
 
+**Settings → Devices & Services → Avfall Sør → (device) → assign an Area.**
 
-[commits-shield]: https://img.shields.io/github/commit-activity/y/custom-components/sensor.avfallsor.svg?style=for-the-badge
-[commits]: https://github.com/custom-components/sensor.avfallsor/commits/master
+See the `lovelace_example/` folder for a manual card example.
+
+## Upgrading from 0.x (breaking changes)
+
+Version 1.0 is a significant modernization:
+
+- **Address-only setup.** The manual `street_id` lookup and the lat/lon
+  fallback have been removed from the config flow. Address search now works
+  directly against Avfall Sør's JSON API. Existing entries that were
+  configured with a `street_id` continue to work; entries relying only on
+  lat/lon must be re-added with an address.
+- **Sensor state changed** from an integer number of days to the **next
+  pickup date** (`device_class: date`). The old day count is now the
+  `days_until` attribute. Automations that read the numeric state must be
+  updated (see the template example above).
+- HTML scraping (and the `beautifulsoup4` / `html5lib` dependencies) has been
+  replaced by Avfall Sør's official JSON endpoints.
+
+## Disclaimer
+
+Unofficial. Uses Avfall Sør's public website endpoints, which may change
+without notice. Not affiliated with or endorsed by Avfall Sør.
+
 [hacs]: https://github.com/hacs/integration
-[hacsbadge]: https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge
-[discord]: https://discord.gg/Qa5fW2R
-[discord-shield]: https://img.shields.io/discord/330944238910963714.svg?style=for-the-badge
-[exampleimg]: example.png
-[forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg?style=for-the-badge
-[forum]: https://community.home-assistant.io/
-[license-shield]: https://img.shields.io/github/license/custom-components/blueprint.svg?style=for-the-badge
-[releases-shield]: https://img.shields.io/github/release/custom-components/blueprint.svg?style=for-the-badge
-[releases]: https://github.com/custom-components/sensor.avfallsor/releases
+[hacsbadge]: https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge

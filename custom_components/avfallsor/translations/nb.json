@@ -1,66 +1,43 @@
 {
     "config": {
-        "title": "Avfallsor",
         "step": {
             "user": {
-                "title": "Avfallsor",
-                "description": "Setup avfallsør sensor, hvis lengde og bredde grader er satt, klikk ok.",
+                "title": "Avfall Sør",
+                "description": "Skriv inn gateadressen din for å finne tømmekalenderen.",
                 "data": {
-                    "address": "Gatenavn husnummer bokstav, Kommunenavn",
-                    "street_id": "Finn id på https://avfallsor.no/henting-av-avfall/finn-hentedag/",
-                    "paper": "papir",
-                    "bio": "matavfall",
-                    "residual": "restavfall",
-                    "metal": "metalavfall",
-                    "plastic": "plastikkavfall",
-                    "glass": "glass"
-                }
-            },
-            "edit": {
-                "title": "Avfallsor",
-                "description": "Setup avfallsør sensor, hvis lengde og bredde grader er satt, klikk ok.",
-                "data": {
-                    "address": "Gatenavn husnummer bokstav, Kommunenavn",
-                    "street_id": "Finn id på https://avfallsor.no/henting-av-avfall/finn-hentedag/",
-                    "paper": "papir",
-                    "bio": "matavfall",
-                    "residual": "restavfall",
-                    "metal": "metalavfall",
-                    "plastic": "plastikkavfall",
-                    "glass": "glass"
+                    "address": "Adresse (f.eks. Kongeveien 1)"
                 }
             }
-
         },
         "error": {
-            "invalid_address": "Ugyldig adresse, Eksempel: Kongeveien 1 A, Kristiansand",
-            "wrong_lat_lon": "Lengde og breddegrade er ikke i Norge",
-            "nothing_worked": "Manglende info for å finne tømmeplanen, angi gate id, gate adresse eller set lengde og breddegrader i hass innstillinger",
-            "no_valid_settings": "Manglende info for å finne tømmeplanen, angi gate id, gate adresse eller set lengde og breddegrader i hass innstillinger"
+            "invalid_address": "Fant ingen adresse. Skriv inn gatenavn og husnummer, f.eks. Kongeveien 1.",
+            "no_pickup_data": "Ingen tømmekalender er tilgjengelig for denne adressen.",
+            "cannot_connect": "Kunne ikke koble til avfallsor.no. Prøv igjen senere."
+        },
+        "abort": {
+            "already_configured": "Denne adressen er allerede konfigurert."
         }
     },
-    "options": {
-        "step": {
-            "edit": {
-                "title": "Avfallsor",
-                "description": "Setup avfallsør sensor, hvis lengde og bredde grader er satt, klikk ok.",
-                "data": {
-                    "address": "Gatenavn husnummer bokstav, Kommunenavn",
-                    "street_id": "Finn id på https://avfallsor.no/henting-av-avfall/finn-hentedag/",
-                    "paper": "papir",
-                    "bio": "matavfall",
-                    "residual": "restavfall",
-                    "metal": "metalavfall",
-                    "plastic": "plastikkavfall",
-                    "glass": "glass"
-                }
+    "entity": {
+        "sensor": {
+            "paper": {
+                "name": "Papp og papir"
+            },
+            "bio": {
+                "name": "Matavfall"
+            },
+            "residual": {
+                "name": "Restavfall"
+            },
+            "metal": {
+                "name": "Metall"
+            },
+            "plastic": {
+                "name": "Plastemballasje"
+            },
+            "glass": {
+                "name": "Glass"
             }
-        },
-        "error": {
-            "invalid_address": "Ugyldig adresse, Eksempel: Kongeveien 1 A, Kristiansand",
-            "wrong_lat_lon": "Lengde og breddegrade er ikke i Norge",
-            "nothing_worked": "Manglende info for å finne tømmeplanen, angi gate id, gate adresse eller set lengde og breddegrader i hass innstillinger",
-            "no_valid_settings": "Manglende info for å finne tømmeplanen, angi gate id, gate adresse eller set lengde og breddegrader i hass innstillinger"
         }
     }
 }
